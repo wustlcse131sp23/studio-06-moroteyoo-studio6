@@ -3,6 +3,9 @@ package studio6;
 import edu.princeton.cs.introcs.StdDraw;
 
 public class RecursiveMethods {
+	public static void main(String[] args) {
+		gcd(48,14);
+	}
 
 	/**
 	 * Computes the geometric sum for the first n terms in the series
@@ -12,9 +15,14 @@ public class RecursiveMethods {
 	 *         ...)
 	 */
 	public static double geometricSum(int n) {
-		
-			// FIXME compute the geometric sum for the first n terms recursively
+		double sum = 0;
+		if(n == 0 ) {
 			return 0;
+		}
+		else {
+			sum = Math.pow(0.5, n) + geometricSum(n-1);
+			return sum;
+		}
 		
 	}
 
@@ -29,7 +37,12 @@ public class RecursiveMethods {
 	public static int gcd(int p, int q) {
 		
 			// FIXME compute the gcd of p and q using recursion
-			return 0;
+		if(q == 0) {
+			return p;
+		}
+		else {
+			return gcd(q,p%q);
+		}
 		
 	}
 
@@ -42,10 +55,29 @@ public class RecursiveMethods {
 	 * @return an array with the same data as the input but it reverse order
 	 */
 	public static int[] toReversed(int[] array) {
+		int[] reversed = new int[array.length];
+		if (array.length == 0) {
+			return reversed;
+		}
+		else {
+			return toReversedHelper(array, reversed, 0);
+		}
 		
 			// FIXME create a helper method that can recursively reverse the given array
-			return new int[0];
 		
+	}
+	public static int[] toReversedHelper (int[] array, int[] reversed, int i) {
+		if(i > array.length/2) {
+			return reversed;
+		}
+		else {
+			reversed[i] = array[array.length-i-1];
+			reversed[array.length-i-1] = array[i];
+/*
+ * Both increment the number, but ++i increments the number before the current expression is evaluted, whereas i++ increments the number after the expression is evaluated.
+ */
+			return toReversedHelper(array, reversed, ++i);
+		}
 	}
 
 	/**
